@@ -24,7 +24,7 @@
     "precompile": "tsc --version",
     "prepare": "npm run compile",
     "compile": "tsc -p .",
-    "postcompile": "copyfiles 'package*.json' build/src/ && npm install --production --ignore-scripts --prefix build/src/ && cd build/src && bestzip ../function.zip *"
+    "postcompile": "copyfiles 'package*.json' build/src/ && npm install --production --ignore-scripts --prefix build/src/ && cd build/src && zip -r ../function.zip ."
   },
   "keywords": [
     "opentelemetry",
@@ -44,7 +44,6 @@
   "devDependencies": {
     "@types/aws-lambda": "8.10.110",
     "@types/node": "18.14.6",
-    "bestzip": "2.2.0",
     "copyfiles": "2.4.1",
     "rimraf": "4.1.2",
     "ts-node": "10.9.1",
