@@ -8,7 +8,6 @@ export interface LambdaApiGatewayStackProps extends cdk.StackProps {
   functionName: string;
   runtime: string;
   architecture: string;
-  tracingMode: string;
 }
 
 export class LambdaApiGatewayStack extends cdk.Stack {
@@ -22,7 +21,7 @@ export class LambdaApiGatewayStack extends cdk.Stack {
       code: lambda.Code.fromAsset('../sample-app/bin/Release/net8.0/publish/function.zip'),
       memorySize: 512,
       timeout: cdk.Duration.seconds(30),
-      tracing: props.tracingMode === 'Active' ? lambda.Tracing.ACTIVE : lambda.Tracing.DISABLED,
+
       architecture: props.architecture === 'arm64' ? lambda.Architecture.ARM_64 : lambda.Architecture.X86_64,
     });
 
@@ -35,9 +34,7 @@ export class LambdaApiGatewayStack extends cdk.Stack {
     const api = new apigateway.LambdaRestApi(this, `ApiGateway-Lambda-ADOT-dotnet-${Math.random().toString(36).substring(2, 10)}`, {
       handler: lambdaFunction,
       proxy: true,
-      deployOptions: {
-        tracingEnabled: props.tracingMode === 'Active',
-      },
+
     });
 
     new cdk.CfnOutput(this, 'DotnetFunctionName', {

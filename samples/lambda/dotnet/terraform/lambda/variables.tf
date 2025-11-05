@@ -4,12 +4,6 @@ variable "function_name" {
   default     = "aws-opentelemetry-distro-dotnet"
 }
 
-variable "tracing_mode" {
-  type        = string
-  description = "Lambda function tracing mode"
-  default     = "Active"
-}
-
 variable "runtime" {
   type        = string
   description = ".NET runtime version used for sample Lambda Function"

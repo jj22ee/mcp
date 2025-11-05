@@ -9,14 +9,8 @@ def lambda_handler(event, context):
     
     result = s3.list_buckets()
     
-    otel_resource_attrs = os.environ.get('OTEL_RESOURCE_ATTRIBUTES')
-    xray_trace_id = os.environ.get('_X_AMZN_TRACE_ID')
-    
-    print(f'Fetched OTel Resource Attrs:{otel_resource_attrs}')
-    print(f'Fetched X-Ray Trace Header:{xray_trace_id}')
-    
     bucket_count = len(result.get('Buckets', []))
-    response_body = f"Hello lambda - found {bucket_count} buckets. X-Ray Trace ID: {xray_trace_id or 'Not available'}"
+    response_body = f"Hello lambda - found {bucket_count} buckets."
     
     return {
         'statusCode': 200,

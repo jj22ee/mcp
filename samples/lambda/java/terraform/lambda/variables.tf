@@ -4,12 +4,6 @@ variable "function_name" {
   default     = "aws-opentelemetry-distro-java"
 }
 
-variable "tracing_mode" {
-  type        = string
-  description = "Lambda function tracing mode"
-  default     = "Active"
-}
-
 variable "runtime" {
   type        = string
   description = "Java runtime version used for sample Lambda Function"

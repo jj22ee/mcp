@@ -22,14 +22,8 @@ public class Function
 
         var result = await _s3Client.ListBucketsAsync();
         
-        var otelResourceAttrs = Environment.GetEnvironmentVariable("OTEL_RESOURCE_ATTRIBUTES");
-        var xrayTraceId = Environment.GetEnvironmentVariable("_X_AMZN_TRACE_ID");
-        
-        context.Logger.LogInformation($"Fetched OTel Resource Attrs:{otelResourceAttrs}");
-        context.Logger.LogInformation($"Fetched X-Ray Trace Header:{xrayTraceId}");
-
         var bucketCount = result.Buckets?.Count ?? 0;
-        var responseBody = $"Hello lambda - found {bucketCount} buckets. X-Ray Trace ID: {xrayTraceId ?? "Not available"}";
+        var responseBody = $"Hello lambda - found {bucketCount} buckets.";
 
         return new APIGatewayProxyResponse
         {

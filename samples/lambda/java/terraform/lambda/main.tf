@@ -26,7 +26,7 @@ module "hello-lambda-function" {
   environment_variables = {
   }
 
-  tracing_mode = var.tracing_mode
+
 
   attach_policy_statements = true
   policy_statements = {
@@ -48,7 +48,7 @@ module "api-gateway" {
   name                = local.api_name
   function_name       = module.hello-lambda-function.lambda_function_name
   function_invoke_arn = module.hello-lambda-function.lambda_function_invoke_arn
-  enable_xray_tracing = var.tracing_mode == "Active"
+  enable_xray_tracing = false
 }
 
 resource "aws_iam_role_policy_attachment" "hello-lambda-cloudwatch" {

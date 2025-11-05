@@ -17,15 +17,8 @@ public class Handler implements RequestHandler<APIGatewayProxyRequestEvent, APIG
 
         ListBucketsResponse result = s3Client.listBuckets();
         
-        String otelResourceAttrs = System.getenv("OTEL_RESOURCE_ATTRIBUTES");
-        String xrayTraceId = System.getProperty("com.amazonaws.xray.traceHeader");
-        
-        context.getLogger().log("Fetched OTel Resource Attrs:" + otelResourceAttrs);
-        context.getLogger().log("Fetched X-Ray Trace Header:" + xrayTraceId);
-
         int bucketCount = result.buckets() != null ? result.buckets().size() : 0;
-        String responseBody = String.format("Hello lambda - found %d buckets. X-Ray Trace ID: %s", 
-            bucketCount, xrayTraceId != null ? xrayTraceId : "Not available");
+        String responseBody = String.format("Hello lambda - found %d buckets.", bucketCount);
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
         response.setStatusCode(200);

@@ -4,12 +4,6 @@ variable "function_name" {
   default     = "aws-opentelemetry-distro-nodejs"
 }
 
-variable "tracing_mode" {
-  type        = string
-  description = "Lambda function tracing mode"
-  default     = "Active"
-}
-
 variable "runtime" {
   type        = string
   description = "NodeJS runtime version used for sample Lambda Function"
