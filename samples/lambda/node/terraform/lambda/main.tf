@@ -1,5 +1,10 @@
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 locals {
   architecture = var.architecture == "x86_64" ? "amd64" : "arm64"
+  function_name = "${var.function_name}-${random_id.suffix.hex}"
 }
 
 module "hello-lambda-function" {
@@ -7,7 +12,7 @@ module "hello-lambda-function" {
   version = ">= 2.24.0"
 
   architectures = compact([var.architecture])
-  function_name = var.function_name
+  function_name = local.function_name
   handler       = "index.handler"
   runtime       = var.runtime
 
@@ -39,7 +44,7 @@ module "hello-lambda-function" {
 module "api-gateway" {
   source = "../api-gateway-proxy"
 
-  name                = var.function_name
+  name                = local.function_name
   function_name       = module.hello-lambda-function.lambda_function_name
   function_invoke_arn = module.hello-lambda-function.lambda_function_invoke_arn
   enable_xray_tracing = var.tracing_mode == "Active"
