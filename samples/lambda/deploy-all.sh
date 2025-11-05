@@ -3,6 +3,10 @@
 # Get the current directory (should be lambda)
 CDK_DIR=$(pwd)
 
+# Bootstrap account
+npm install -g aws-cdk
+npx cdk bootstrap aws://$(aws sts get-caller-identity --query Account --output text)/$(aws configure get region)
+
 # Builds sample apps (pre-requisite for deployment via terraform), then deploy via CDK
 cd "$CDK_DIR/node/cdk/"
 ./deploy.sh &
