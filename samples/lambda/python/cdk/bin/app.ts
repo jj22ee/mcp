@@ -5,7 +5,7 @@ import { LambdaApiGatewayStack } from '../lib/lambda-apigateway-stack';
 
 const app = new cdk.App();
 
-const functionName = app.node.tryGetContext('functionName') || `aws-opentelemetry-distro-python-${Math.random().toString(36).substring(2, 10)}`;
+const functionName = app.node.tryGetContext('functionName') || `aws-opentelemetry-distro-python-cdk-${Math.random().toString(36).substring(2, 10)}`;
 const runtime = app.node.tryGetContext('runtime') || 'python3.12';
 const architecture = app.node.tryGetContext('architecture') || 'x86_64';
 

@@ -31,7 +31,7 @@ export class LambdaApiGatewayStack extends cdk.Stack {
       resources: ['*'],
     }));
 
-    const api = new apigateway.LambdaRestApi(this, `ApiGateway-Lambda-ADOT-dotnet-${Math.random().toString(36).substring(2, 10)}`, {
+    const api = new apigateway.LambdaRestApi(this, `ApiGateway-Lambda-ADOT-dotnet-cdk-${Math.random().toString(36).substring(2, 10)}`, {
       handler: lambdaFunction,
       proxy: true,
 

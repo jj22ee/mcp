@@ -1,7 +1,7 @@
 variable "function_name" {
   type        = string
   description = "Name of sample app function / API gateway"
-  default     = "aws-opentelemetry-distro-python"
+  default     = "aws-opentelemetry-distro-python-terraform"
 }
 
 variable "runtime" {

@@ -5,7 +5,7 @@ resource "random_id" "suffix" {
 locals {
   architecture = var.architecture == "x86_64" ? "amd64" : "arm64"
   function_name = "${var.function_name}-${random_id.suffix.hex}"
-  api_name = "ApiGateway-Lambda-ADOT-nodejs-${random_id.suffix.hex}"
+  api_name = "ApiGateway-Lambda-ADOT-nodejs-terraform-${random_id.suffix.hex}"
 }
 
 module "hello-lambda-function" {
