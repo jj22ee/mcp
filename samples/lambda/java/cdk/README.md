@@ -28,11 +28,11 @@ mvn clean package
 cd ../cdk
 npm install
 npm run build
-npx cdk deploy
+npm run deploy
 ```
 
 ## Cleanup
 
 ```bash
-npx cdk destroy
+npm run destroy
 ```

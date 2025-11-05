@@ -36,5 +36,5 @@ npm run deploy
 ## Cleanup
 
 ```bash
-cdk destroy
+npm run destroy
 ```

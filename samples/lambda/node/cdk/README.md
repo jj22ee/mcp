@@ -38,7 +38,6 @@ cdk deploy -c functionName=my-function -c runtime=nodejs20.x -c architecture=arm
 
 ## Cleanup
 
-To destroy the stack:
 ```bash
 npm run destroy
 ```

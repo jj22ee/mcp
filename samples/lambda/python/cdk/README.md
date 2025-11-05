@@ -29,11 +29,11 @@ zip -r function.zip . --exclude="*.pyc" "__pycache__/*"
 cd ../cdk
 npm install
 npm run build
-cdk deploy
+npm run deploy
 ```
 
 ## Cleanup
 
 ```bash
-cdk destroy
+npm run destroy
 ```
