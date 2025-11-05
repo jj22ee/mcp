@@ -10,7 +10,7 @@ const runtime = app.node.tryGetContext('runtime') || 'java17';
 const architecture = app.node.tryGetContext('architecture') || 'x86_64';
 const tracingMode = app.node.tryGetContext('tracingMode') || 'Active';
 
-new LambdaApiGatewayStack(app, 'LambdaApiGatewayStack', {
+new LambdaApiGatewayStack(app, 'LambdaApiGatewayStack-CDK-ADOT-java', {
   functionName,
   runtime,
   architecture,

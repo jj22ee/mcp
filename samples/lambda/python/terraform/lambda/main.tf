@@ -5,6 +5,7 @@ resource "random_id" "suffix" {
 locals {
   architecture = var.architecture == "x86_64" ? "amd64" : "arm64"
   function_name = "${var.function_name}-${random_id.suffix.hex}"
+  api_name = "ApiGateway-Lambda-ADOT-python-${random_id.suffix.hex}"
 }
 
 module "hello-lambda-function" {
@@ -44,7 +45,7 @@ module "hello-lambda-function" {
 module "api-gateway" {
   source = "../api-gateway-proxy"
 
-  name                = local.function_name
+  name                = local.api_name
   function_name       = module.hello-lambda-function.lambda_function_name
   function_invoke_arn = module.hello-lambda-function.lambda_function_invoke_arn
   enable_xray_tracing = var.tracing_mode == "Active"

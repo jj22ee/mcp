@@ -52,7 +52,7 @@ resource "aws_api_gateway_deployment" "lambda_api_proxy" {
 }
 
 resource "aws_api_gateway_stage" "test" {
-  stage_name           = "default"
+  stage_name           = "prod"
   rest_api_id          = aws_api_gateway_rest_api.lambda_api_proxy.id
   deployment_id        = aws_api_gateway_deployment.lambda_api_proxy.id
   xray_tracing_enabled = var.enable_xray_tracing

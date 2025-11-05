@@ -1,0 +1,48 @@
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
+
+export interface LambdaApiGatewayStackProps extends cdk.StackProps {
+  functionName: string;
+  runtime: string;
+  architecture: string;
+  tracingMode: string;
+}
+
+export class LambdaApiGatewayStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: LambdaApiGatewayStackProps) {
+    super(scope, id, props);
+
+    const lambdaFunction = new lambda.Function(this, 'LambdaFunction', {
+      functionName: props.functionName,
+      runtime: lambda.Runtime.DOTNET_8,
+      handler: 'LambdaSample::LambdaSample.Function::FunctionHandler',
+      code: lambda.Code.fromAsset('../sample-app/bin/Release/net8.0/publish/function.zip'),
+      memorySize: 512,
+      timeout: cdk.Duration.seconds(30),
+      tracing: props.tracingMode === 'Active' ? lambda.Tracing.ACTIVE : lambda.Tracing.DISABLED,
+      architecture: props.architecture === 'arm64' ? lambda.Architecture.ARM_64 : lambda.Architecture.X86_64,
+    });
+
+    lambdaFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['s3:ListAllMyBuckets'],
+      resources: ['*'],
+    }));
+
+    const api = new apigateway.LambdaRestApi(this, `ApiGateway-Lambda-ADOT-dotnet-${Math.random().toString(36).substring(2, 10)}`, {
+      handler: lambdaFunction,
+      proxy: true,
+      deployOptions: {
+        tracingEnabled: props.tracingMode === 'Active',
+      },
+    });
+
+    new cdk.CfnOutput(this, 'DotnetFunctionName', {
+      value: lambdaFunction.functionName,
+      description: 'Lambda Function Name',
+    });
+  }
+}
